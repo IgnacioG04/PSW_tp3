@@ -1,0 +1,70 @@
+<div class="mt-5">
+  <h3 class="mb-4"> Listado de Inscripciones</h3>
+  
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-striped table-hover align-middle mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th>Fecha</th>
+          <th>DNI</th>
+          <th>Curso</th>
+          <th>Email</th>
+          <th>Categoría</th>
+          <th class="text-end">Precio Final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of servicio.getInscripciones()">
+          <td>{{ item.fechaInscripcion | date:'dd/MM/yyyy' }}</td>
+          <td>{{ item.dni }}</td>
+          <td class="fw-bold">{{ item.curso }}</td>
+          <td>{{ item.email }}</td>
+          <td>
+            <span [ngSwitch]="item.categoriaAlumno">
+              <span *ngSwitchCase="1" class="badge bg-info text-dark">Estudiante</span>
+              <span *ngSwitchCase="2" class="badge bg-success">Egresado</span>
+              <span *ngSwitchCase="3" class="badge bg-secondary">Particular</span>
+            </span>
+          </td>
+          <td class="text-end fw-bold text-primary">
+            {{ item.totalConDescuento | currency:'USD':'symbol':'1.2-2' }}
+          </td>
+        </tr>
+        <tr *ngIf="servicio.getInscripciones().length === 0">
+          <td colspan="6" class="text-center py-4 text-muted">
+            No hay inscripciones registradas aún.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- apartado de resumen -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card border-0 shadow-sm bg-light">
+        <div class="card-body p-4">
+          <h5 class="card-title mb-3"> Resumen por Categoría</h5>
+          <div class="d-flex justify-content-between flex-wrap gap-3">
+            <div class="text-center p-3 border rounded bg-white flex-grow-1">
+              <small class="text-muted d-block">Estudiantes</small>
+              <span class="fs-4 fw-bold text-info">{{ servicio.getResumen().estudiantes }}</span>
+            </div>
+            <div class="text-center p-3 border rounded bg-white flex-grow-1">
+              <small class="text-muted d-block">Egresados</small>
+              <span class="fs-4 fw-bold text-success">{{ servicio.getResumen().egresados }}</span>
+            </div>
+            <div class="text-center p-3 border rounded bg-white flex-grow-1">
+              <small class="text-muted d-block">Particulares</small>
+              <span class="fs-4 fw-bold text-secondary">{{ servicio.getResumen().particulares }}</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Total Recaudado:</h4>
+            <h3 class="mb-0 text-primary fw-bold">{{ servicio.getResumen().totalRecaudado | currency }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
