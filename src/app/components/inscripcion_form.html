@@ -1,0 +1,62 @@
+<div class="card shadow-sm mb-4 border-0">
+  <div class="card-header bg-primary text-white p-3">
+    <h5 class="mb-0"> Nueva inscripcion a curso</h5>
+  </div>
+  <div class="card-body p-4">
+    <form>
+      <div class="row">
+        <!-- dni -->
+        <div class="col-md-4 mb-3">
+          <label class="form-label fw-bold">DNI</label>
+          <input type="text" class="form-control" name="dni" [(ngModel)]="nuevaInscripcion.dni" placeholder="Ej: 40123456">
+        </div>
+
+        <!-- curso -->
+        <div class="col-md-8 mb-3">
+          <label class="form-label fw-bold">Nombre del Curso</label>
+          <input type="text" class="form-control" name="curso" [(ngModel)]="nuevaInscripcion.curso" placeholder="Ej: Programación Angular">
+        </div>
+
+        <!-- precio -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Precio del Curso ($)</label>
+          <input type="number" step="0.01" class="form-control" name="precio" 
+                 [(ngModel)]="nuevaInscripcion.precio" 
+                 (change)="calcularTotal()">
+        </div>
+
+        <!-- categoria -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Categoría de Alumno</label>
+          <select class="form-select" name="categoria" 
+                  [(ngModel)]="nuevaInscripcion.categoriaAlumno" 
+                  (change)="calcularTotal()">
+            <option value="0" disabled>-- Seleccione tipo --</option>
+            <option value="1">Estudiante (35% Desc.)</option>
+            <option value="2">Egresado (50% Desc.)</option>
+            <option value="3">Particular (Sin Desc.)</option>
+          </select>
+        </div>
+
+        <!-- correo -->
+        <div class="col-md-12 mb-3">
+          <label class="form-label fw-bold">Correo de contacto</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="nuevaInscripcion.email" placeholder="alumno@ejemplo.com">
+        </div>
+      </div>
+
+      <!-- total con descuento -->
+      <div class="alert alert-warning border-0 shadow-sm py-3 mt-2 d-flex justify-content-between align-items-center" 
+           *ngIf="nuevaInscripcion.precio > 0 && nuevaInscripcion.categoriaAlumno > 0">
+        <span class="fw-bold">Total con descuento:</span> 
+        <span class="fs-4 fw-bold text-dark">{{ nuevaInscripcion.totalConDescuento | currency:'ARS':'symbol':'1.2-2' }}</span>
+      </div>
+
+      <div class="text-end mt-4">
+        <button type="button" class="btn btn-primary px-4 py-2 fw-bold" (click)="registrar()">
+          REGISTRAR ALUMNO
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
