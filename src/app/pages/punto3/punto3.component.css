@@ -1,0 +1,28 @@
+.carta {
+  cursor: pointer;
+  border: 3px solid #0d6efd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.15s ease-in-out;
+  background: #fff;
+}
+
+.carta:hover:not(.disabled) {
+  transform: scale(1.04);
+}
+
+.carta.disabled {
+  cursor: not-allowed;
+}
+
+.carta.descubierta {
+  border-color: #198754;
+  opacity: 0.7;
+}
+
+.carta-img {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}

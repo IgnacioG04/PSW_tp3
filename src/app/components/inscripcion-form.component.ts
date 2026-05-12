@@ -4,7 +4,7 @@ import { Inscripcion } from '../models/inscripcion.model';
 
 @Component({
   selector: 'app-inscripcion-form',
-  templateUrl: './inscripcion_form.html'
+  templateUrl: './inscripcion-form.component.html'
 })
 export class InscripcionFormComponent {
 

@@ -1,0 +1,17 @@
+.producto-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.btn-carrito {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 44px;
+  padding: 0;
+}
+
+.btn-carrito svg {
+  display: block;
+}

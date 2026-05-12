@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Inscripcion } from '../models/inscripcion.model';
 
 @Injectable({
@@ -7,22 +8,37 @@ import { Inscripcion } from '../models/inscripcion.model';
 export class InscripcionService {
   private _inscripciones: Inscripcion[] = [];
 
-  constructor() { }
+  cambios$ = new Subject<void>();
 
-  // obtener las inscripciones
   getInscripciones(): Inscripcion[] {
     return this._inscripciones;
   }
 
-  // cargar una nueva inscripcion
-  agregarInscripcion(inscripcion: Inscripcion) {
+  agregarInscripcion(inscripcion: Inscripcion): void {
     this._inscripciones.push({
       ...inscripcion,
       fechaInscripcion: new Date()
     });
+    this.cambios$.next();
   }
 
-  // resumen solicitado
+  actualizarInscripcion(indice: number, datos: Partial<Inscripcion>): void {
+    if (indice >= 0 && indice < this._inscripciones.length) {
+      this._inscripciones[indice] = {
+        ...this._inscripciones[indice],
+        ...datos
+      };
+      this.cambios$.next();
+    }
+  }
+
+  eliminarInscripcion(indice: number): void {
+    if (indice >= 0 && indice < this._inscripciones.length) {
+      this._inscripciones.splice(indice, 1);
+      this.cambios$.next();
+    }
+  }
+
   getResumen() {
     const resumen = {
       estudiantes: 0,
